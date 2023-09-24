@@ -13,6 +13,7 @@ const App = () => {
   const [countdown, setCountdown] = useState(null);
   const [stop, setStop] = useState(false);
   const [scheduling, setScheduling] = useState(false);
+  const [timeoutId, setTimeoutId] = useState(null); // Added a state to hold the timeout ID
 
   const handleRunClick = () => {
     setShowDialog(true);
@@ -29,13 +30,16 @@ const App = () => {
     setCountdown(countdownInterval);
 
     // Simulate a time-consuming process
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       if (!stop) {
         setLoading(false);
         setSuccess(true);
         clearInterval(countdownInterval); // Clear the countdown timer when processing is done
       }
     }, 10000); // Updated to match the timer value
+
+    // Store the timeout ID in state
+    setTimeoutId(timeoutId);
   };
 
   const handleStopClick = () => {
@@ -43,9 +47,15 @@ const App = () => {
     setTimer(0);
     setLoading(true);
     setSuccess(false);
+
     // Clear the countdown timer
     if (countdown !== null) {
       clearInterval(countdown);
+    }
+
+    // Clear the timeout if it exists
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
     }
   };
 
@@ -80,93 +90,89 @@ const App = () => {
       <div className="App">
         {showDialog && (
           <div className="dialog">
-          
-              <>
-                <div className="container">
-                  <div className="process-container">
-                    {loading ? (
-                      <>
-                        {stop ? (
-                          <div className="loading-spinner">
-                            Processing Stopped...
-                          </div>
-                        ) : (
-                          <div className="loading-spinner">
-                            Processing operation...
-                          </div>
-                        )}
-                        <div className="sub-spinner">
-                          Click the stop button to interrupt the operation
+            <>
+              <div className="container">
+                <div className="process-container">
+                  {loading ? (
+                    <>
+                      {stop ? (
+                        <div className="loading-spinner">
+                          Processing Stopped...
                         </div>
-                      </>
-                    ) : (
-                      <b>The execution was successful</b>
-                    )}
-                  </div>
-                  <div className="sub-container">
-                    {loading ? (
-                      timer > 0 ? (
-                        <div style={{display:"flex", alignItems:"center"}}>
-                        <img src={loaderGif} alt="Loading" style={{width:"30px",height:"30px",background:"white"}}/>
+                      ) : (
+                        <div className="loading-spinner">
+                          Processing operation...
+                        </div>
+                      )}
+                      <div className="sub-spinner">
+                        Click the stop button to interrupt the operation
+                      </div>
+                    </>
+                  ) : (
+                    <b>The execution was successful</b>
+                  )}
+                </div>
+                <div className="sub-container">
+                  {loading ? (
+                    timer > 0 ? (
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <img src={loaderGif} alt="Loading" style={{ width: "30px", height: "30px", background: "white" }} />
                         {`${timer} remaining`}
                       </div>
-                      ) : stop ? (
-                        "Processing Stopped"
-                      ) : (
-                        "Processing completed"
-                      )
+                    ) : stop ? (
+                      "Processing Stopped"
                     ) : (
-                      <div className="check-container">
-                        {" "}
-                        <div className="success-checkmark">
-                          <div className="check-icon"></div>
-                        </div>{" "}
-                        <b>Success</b>
-                      </div>
-                    )}
-                    <div className="grid-containers">
-                      <div>18 Total</div>
-                      <div>0 Error</div>
-                      <div>2 Success</div>
-                      <div>0 Warning</div>
+                      "Processing completed"
+                    )
+                  ) : (
+                    <div className="check-container">
+                      {" "}
+                      <div className="success-checkmark">
+                        <div className="check-icon"></div>
+                      </div>{" "}
+                      <b>Success</b>
                     </div>
-                  </div>
-                  <div className="table-container">
-                    <div className="detail">Details</div>
-                    <div className="table-sub-container">
-                      <div className="subContainer">
-                        <span></span>
-                        <span>Process Name</span>
-                        <span>Status</span>
-                        <span>Message</span>
-                        <span></span>
-                      </div>
-                      <div className="table"></div>
-                    </div>
+                  )}
+                  <div className="grid-containers">
+                    <div>18 Total</div>
+                    <div>0 Error</div>
+                    <div>2 Success</div>
+                    <div>0 Warning</div>
                   </div>
                 </div>
-                <div className="stop-container">
-                  <button
-                    disabled={!loading || stop}
-                    className="stop-button"
-                    onClick={handleStopClick}
-                  >
-                    Stop
-                  </button>
+                <div className="table-container">
+                  <div className="detail">Details</div>
+                  <div className="table-sub-container">
+                    <div className="subContainer">
+                      <span></span>
+                      <span>Process Name</span>
+                      <span>Status</span>
+                      <span>Message</span>
+                      <span></span>
+                    </div>
+                    <div className="table"></div>
+                  </div>
                 </div>
-                <div className="close-container">
-                  <button className="close-button" onClick={handleCloseClick}>
-                    Close
-                  </button>
-                </div>
-              </>
+              </div>
+              <div className="stop-container">
+                <button
+                  disabled={!loading || stop}
+                  className="stop-button"
+                  onClick={handleStopClick}
+                >
+                  Stop
+                </button>
+              </div>
+              <div className="close-container">
+                <button className="close-button" onClick={handleCloseClick}>
+                  Close
+                </button>
+              </div>
+            </>
           </div>
         )}
-        {scheduling &&
-              <Schedule />
-      }
+        {scheduling && <Schedule />}
       </div>
-
     </div>
   );
 };
