@@ -13,32 +13,29 @@ const App = () => {
   const [countdown, setCountdown] = useState(null);
   const [stop, setStop] = useState(false);
   const [scheduling, setScheduling] = useState(false);
-  const [timeoutId, setTimeoutId] = useState(null); // Added a state to hold the timeout ID
+  const [timeoutId, setTimeoutId] = useState(null); 
 
   const handleRunClick = () => {
     setShowDialog(true);
     setLoading(true);
     setScheduling(false);
 
-    setTimer(20); // Set the initial timer value (in seconds)
+    setTimer(20);
 
-    // Create a countdown timer
     const countdownInterval = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
     }, 1000);
 
     setCountdown(countdownInterval);
 
-    // Simulate a time-consuming process
     const timeoutId = setTimeout(() => {
       if (!stop) {
         setLoading(false);
         setSuccess(true);
-        clearInterval(countdownInterval); // Clear the countdown timer when processing is done
+        clearInterval(countdownInterval); 
       }
-    }, 10000); // Updated to match the timer value
+    }, 10000); 
 
-    // Store the timeout ID in state
     setTimeoutId(timeoutId);
   };
 
@@ -48,12 +45,10 @@ const App = () => {
     setLoading(true);
     setSuccess(false);
 
-    // Clear the countdown timer
     if (countdown !== null) {
       clearInterval(countdown);
     }
 
-    // Clear the timeout if it exists
     if (timeoutId !== null) {
       clearTimeout(timeoutId);
     }
@@ -65,7 +60,6 @@ const App = () => {
     setShowDialog(false);
     setTimer(0);
 
-    // Clear the countdown timer
     if (countdown !== null) {
       clearInterval(countdown);
     }
@@ -78,7 +72,6 @@ const App = () => {
 
   useEffect(() => {
     if (success) {
-      // Add any logic for handling a successful process here
       console.log("Processing successful");
     }
   }, [success]);

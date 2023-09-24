@@ -6,29 +6,21 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 const Schedule = () => {
-  // State to store the name input value
   const [name, setName] = useState("");
 
-  // State to store the selected schedule type
   const [scheduleType, setScheduleType] = useState("Type1");
 
-  // State to manage the checkbox status
   const [enabled, setEnabled] = useState(true);
 
-  // State to track whether "No End Date" is selected
   const [noEndDateSelected, setNoEndDateSelected] = useState(true);
 
-  // State to store the selected end date
-  const [endDate, setEndDate] = useState(null);
+ const [endDate, setEndDate] = useState(null);
 
-  // State to store the selected date and time
   const [selectedDate, setSelectedDate] = useState("2023-09-24");
   const [selectedTime, setSelectedTime] = useState("12:00 PM");
 
-  // State for start date
   const [startDate, setStartDate] = useState(new Date());
 
-  // State for timer values (hours, minutes, seconds)
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -39,11 +31,9 @@ const Schedule = () => {
     setShowDialog(false);
   };
 
-  // State to store the textarea content
   const [textareaContent, setTextareaContent] = useState("");
 
-  // Function to handle timer increment
-  const incrementTimer = () => {
+ const incrementTimer = () => {
     if (seconds < 59) {
       setSeconds(seconds + 1);
     } else if (minutes < 59) {
@@ -56,7 +46,6 @@ const Schedule = () => {
     }
   };
 
-  // Function to handle timer decrement
   const decrementTimer = () => {
     if (hours > 0 || minutes > 0 || seconds > 0) {
       if (seconds > 0) {
