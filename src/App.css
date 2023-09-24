@@ -42,7 +42,7 @@ button {
   border-bottom: 1px solid #c9c9c9;
 }
 
-.grid-container {
+.grid-containers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   /* Two columns with equal width */
@@ -50,7 +50,7 @@ button {
   /* Adjust the gap between columns as needed */
 }
 
-.grid-container>div {
+.grid-containers>div {
   flex: 1;
   text-align: start;
 }

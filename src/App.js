@@ -3,6 +3,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 import Schedule from "./scheduleProperty";
+import loaderGif from './assests/loader.gif';
 
 const App = () => {
   const [showDialog, setShowDialog] = useState(false);
@@ -105,7 +106,10 @@ const App = () => {
                   <div className="sub-container">
                     {loading ? (
                       timer > 0 ? (
-                        `${timer} remaining`
+                        <div style={{display:"flex", alignItems:"center"}}>
+                        <img src={loaderGif} alt="Loading" style={{width:"30px",height:"30px",background:"white"}}/>
+                        {`${timer} remaining`}
+                      </div>
                       ) : stop ? (
                         "Processing Stopped"
                       ) : (
@@ -120,7 +124,7 @@ const App = () => {
                         <b>Success</b>
                       </div>
                     )}
-                    <div className="grid-container">
+                    <div className="grid-containers">
                       <div>18 Total</div>
                       <div>0 Error</div>
                       <div>2 Success</div>
