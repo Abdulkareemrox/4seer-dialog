@@ -10,14 +10,7 @@ const Schedule = () => {
 
   const [scheduleType, setScheduleType] = useState("Type1");
 
-  const [enabled, setEnabled] = useState(true);
-
   const [noEndDateSelected, setNoEndDateSelected] = useState(true);
-
- const [endDate, setEndDate] = useState(null);
-
-  const [selectedDate, setSelectedDate] = useState("2023-09-24");
-  const [selectedTime, setSelectedTime] = useState("12:00 PM");
 
   const [startDate, setStartDate] = useState(new Date());
 

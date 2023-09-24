@@ -115,7 +115,7 @@ button {
   margin-top: 20px;
   border-bottom: 1px solid #c9c9c9;
   width: 100%;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .stop-button {
@@ -128,7 +128,7 @@ button {
 .close-container{
   display: flex;
   width: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 20px;
 }
 
